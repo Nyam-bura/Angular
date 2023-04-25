@@ -1,0 +1,271 @@
+<mat-card class="cont">
+  <mat-card class="list">
+    <div class="design">
+      <div fxLayout="row" fxLayoutAlign="space-evenly stretch">
+        <h2>Design</h2>
+        <h4>Task List System</h4>
+        <mat-icon style="margin-top: 25px">notifications</mat-icon>
+      </div>
+    </div>
+    <div class="name">
+      <button mat-button [matMenuTriggerFor]="menu5">
+        JW
+        <mat-menu #menu5="matMenu" style="width: 90px;">
+          <mat-card class="jp">
+            <p>JW</p>
+          </mat-card>
+          <h3>James Wachira</h3>
+          <hr/>
+          <button mat-menu-item>
+            <mat-icon>person</mat-icon>
+            <span>Profile</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>settings</mat-icon>
+            <span>Settings</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>key</mat-icon>
+            <span>Change Password</span>
+          </button>
+          <hr />
+          <button mat-menu-item>
+            <h3>Mode</h3>
+          </button>
+              <div class="modes">
+                <!-- <mat-icon class="light-mode">brightness_3 </mat-icon> -->
+                <br>
+                  <span>Light Mode</span>
+                <!-- <mat-icon class="dark-mode">brightness_4</mat-icon> -->
+                <br>
+                  <span class="dark">Dark Mode</span>
+              </div>
+          <hr/>
+          <button mat-menu-item>
+            <mat-icon>logout</mat-icon>
+            <span>LogOut</span>
+          </button>
+        </mat-menu>
+      </button>
+    </div>
+  </mat-card>
+  <mat-card class="card">
+    <div class="stages">
+      <div fxLayout="row" fxLayoutAlign="space-evenly center">
+        <h5><u class="dotted"> Stages</u><br />All</h5>
+        <h5><u class="dotted">Tasks</u><br />Active</h5>
+        <h5><u class="dotted">View</u></h5>
+        <div class="main">
+          <button
+            mat-button
+            [matMenuTriggerFor]="tasks"
+            style="margin-top: 44%; margin-left: -380%; border: none"
+          >
+            Start:Any,D
+          </button>
+          <mat-menu #tasks="matMenu">
+            <button mat-menu-item>Start Date</button>
+            <button mat-menu-item>Due Date</button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu1"
+      style="
+        width: 50px;
+        margin-left: 1500px;
+        border-radius: 20px;
+        margin-top: -3%;
+        border: none;
+      "
+    >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu1="matMenu">
+      <button mat-menu-item>
+        <mat-icon> save_alt</mat-icon>
+        <span>Generate Reports For Tasks</span>
+      </button>
+      <button mat-menu-item enabled>
+        <mat-icon>input</mat-icon>
+        <span>Import Csv</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>visibility</mat-icon>
+        <span>Show Fields</span>
+      </button>
+    </mat-menu>
+    <mat-form-field appearance="fill">
+      <mat-select [(value)]="selected">
+        <mat-option value="option2" class="style">
+          <mat-icon>border_all</mat-icon>
+          <span>BoardView</span>
+        </mat-option>
+        <mat-option value="option3" class="styling">
+          <mat-icon>view_module</mat-icon>
+          <span>TableView</span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="example-form-field">
+      <mat-label>Search For tasks</mat-label>
+      <input matInput type="text" [(ngModel)]="value" />
+      <button
+        *ngIf="value"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="value = ''"
+        style="border-radius: 20px; height: 33px; width: 35px"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </mat-card>
+  <div fxLayout="row" fxLayoutAlign="space-around Start">
+    <h5 class="status">Backlog</h5>
+    <div class="badge">
+      <button mat-fab color="accent">
+        <p>2</p>
+      </button>
+    </div>
+    <h5 class="status1">Inprogress</h5>
+    <div class="badge1">
+      <button mat-fab color="accent">
+        <p>0</p>
+      </button>
+    </div>
+    <h5 class="status2">Complete</h5>
+    <div class="badge2">
+      <button mat-fab color="accent">
+        <p>2</p>
+      </button>
+    </div>
+  </div>
+  <mat-card class="add-task">
+    <div class="tasking">
+      <mat-icon class="iconz"> add</mat-icon>
+      <h3>Add tasks</h3>
+    </div>
+  </mat-card>
+
+  <div
+    [ngStyle]="{ 'background-color': bgColor }"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseLeave()"
+    class="First-Card"
+  >
+    <div class="example-container">
+      
+      <div
+        cdkDropList
+        #Task_ArrayList="cdkDropList"
+        [cdkDropListData]="Task_Array"
+        [cdkDropListConnectedTo]="[Todo_ArrayList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of Task_Array" cdkDrag>
+          {{item.Title}}
+          <br>
+          <br>
+          Due Date: {{item.Date}}
+          <br>
+          <br>
+          Assigned By: {{item.Assignee}}
+
+          <button mat-button [matMenuTriggerFor]="menu" style="margin-left: 100px; margin-top:-70px; border: none; border-radius: 20px;">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item><mat-icon>visibility</mat-icon><span>View Tasks</span></button>
+            <button mat-menu-item><mat-icon>delete</mat-icon><span>Delete</span></button>
+            <button mat-menu-item><mat-icon>share</mat-icon><span>Share</span></button>
+            <button mat-menu-item><span>Move</span></button>
+            <button mat-menu-item><span>Archive</span></button>
+          </mat-menu>
+
+        </div>
+      </div>
+     
+    </div>
+    
+    </div>
+
+    <div class="inner-card"
+    [ngStyle]="{'background-color': hover ? 'red' : ''}"
+    (mouseenter)="hover = true" 
+    (mouseleave)="hover = false">
+
+      <div class="example-container">
+        <div
+          cdkDropList
+          #Todo_ArrayList="cdkDropList"
+          [cdkDropListData]="Todo_Array"
+          [cdkDropListConnectedTo]="[Task_ArrayList]"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)">
+  
+          <div class="example-box" *ngFor="let item of Todo_Array" cdkDrag>
+            {{item.Title}}
+            <br>
+            <br>
+            Due Date: {{item.Date}}
+            <br>
+            <br>
+            Assigned By: {{item.Assigned}}
+          
+
+            <button mat-button [matMenuTriggerFor]="menu" style="margin-left: 100px; margin-top:-70px; border: none; border-radius: 20px;">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item><mat-icon>visibility</mat-icon><span>View Tasks</span></button>
+              <button mat-menu-item><mat-icon>delete</mat-icon><span>Delete</span></button>
+              <button mat-menu-item><mat-icon>share</mat-icon><span>Share</span></button>
+              <button mat-menu-item><span>Move</span></button>
+              <button mat-menu-item><span>Archive</span></button>
+            </mat-menu>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   <div class="innermost-card"
+   [ngStyle]="{'background-color': hovering ? 'black' : ''}"
+   (mouseenter)="hovering = true" 
+   (mouseleave)="hovering = false"
+>
+    <div class="example-container">
+      <div  cdkDropList
+      #Task_ArrayList="cdkDropList"
+      [cdkDropListData]="Task_Array"
+      [cdkDropListConnectedTo]="[Task_ArrayList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of movies_Array" cdkDrag>
+          {{item.Title}}
+          <br>
+          <br>
+          Due Date : {{item.Date}}
+          <br>
+          <br>
+          Assigned By: {{item.Assignee}}
+          
+
+          <button mat-button [matMenuTriggerFor]="menu" style="margin-left: 100px; margin-top:-70px; border: none; border-radius: 20px;">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item><mat-icon>visibility</mat-icon><span>View Tasks</span></button>
+            <button mat-menu-item><mat-icon>delete</mat-icon><span>Delete</span></button>
+            <button mat-menu-item><mat-icon>share</mat-icon><span>Share</span></button>
+            <button mat-menu-item><span>Move</span></button>
+            <button mat-menu-item><span>Archive</span></button>
+          </mat-menu>
+        </div>                
+      </div>
+    </div>
+  </div>
+</mat-card>
